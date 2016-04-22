@@ -1,6 +1,2 @@
-﻿  main.cpp
-c:\users\u93032\documents\github\syntheticimage\rtis_students\src\main.cpp(261): warning C4018: '<': no coinciden signed/unsigned
-c:\users\u93032\documents\github\syntheticimage\rtis_students\src\main.cpp(258): warning C4101: 'root': variable local sin referencia
-c:\users\u93032\documents\github\syntheticimage\rtis_students\src\main.cpp(294): warning C4244: 'argumento': conversión de 'size_t' a 'const double'; posible pérdida de datos
-c:\users\u93032\documents\github\syntheticimage\rtis_students\src\main.cpp(316): warning C4244: 'argumento': conversión de 'size_t' a 'const double'; posible pérdida de datos
+﻿  perspective.cpp
   VisualStudio2015.vcxproj -> C:\Users\u93032\Documents\GitHub\SyntheticImage\RTIS_Students\VisualStudio2015\x64\Debug\RTIS.exe

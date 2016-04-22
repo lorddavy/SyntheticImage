@@ -287,11 +287,11 @@ void raytrace()
                              // meaning that the camera space = world space
     OrtographicCamera camOrtho(cameraToWorld, film1);
 
-	for (int i = 0; i < resY; i++)
+	for (float i = 0; i < resY; i++)
 	{
-		for (int j = 0; j < resX; j++)
+		for (float j = 0; j < resX; j++)
 		{
-			r1 = camOrtho.generateRay(i/resY, j/resX);
+			r1 = camOrtho.generateRay(i/(float)resY, j/(float)resX);
 			if (s.rayIntersectP(r1))
 			{
 				film1.setPixelValue(i, j, Vector3D(1, 0, 0));
@@ -309,11 +309,11 @@ void raytrace()
     double fovRadians = Utils::degreesToRadians(60);
     PerspectiveCamera camPersp(cameraToWorld, fovRadians, film2);
 
-	for (int i = 0; i < resY; i++)
+	for (float i = 0; i < resY; i++)
 	{
-		for (int j = 0; j < resX; j++)
+		for (float j = 0; j < resX; j++)
 		{
-			r2 = camPersp.generateRay(i / resY, j / resX);
+			r2 = camPersp.generateRay(i/(float)resY, j/(float)resX);
 			if (s.rayIntersectP(r2))
 			{
 				film2.setPixelValue(i, j, Vector3D(1, 0, 0));

@@ -163,48 +163,8 @@ Ray Matrix4x4::transformRay(const Ray &r) const
 
     //std::cout << "PLEASE COMPLETE THE Matrix4x4::transformRay()) FUNCTION!" << std::endl;
 
-	Vector3D p = r.o;
-	Vector3D v = r.d;	
-
-	double xTransformed, yTransformed,
-		zTransformed, wTransformed;
-	
-	xTransformed = data[0][0] * p.x + data[0][1] * p.y +
-		data[0][2] * p.z + data[0][3];
-
-	yTransformed = data[1][0] * p.x + data[1][1] * p.y +
-		data[1][2] * p.z + data[1][3];
-
-	zTransformed = data[2][0] * p.x + data[2][1] * p.y +
-		data[2][2] * p.z + data[2][3];
-
-	wTransformed = data[3][0] * p.x + data[3][1] * p.y +
-		data[3][2] * p.z + data[3][3];
-
-	if (wTransformed == 1.0)
-	{
-		transformedRay.o = Vector3D(xTransformed, yTransformed, zTransformed);
-	}
-	else
-	{
-		if (wTransformed == 0.0)
-			std::cout << "Problem! wTransformed = 0 in Matrix4x4::operator*(const Point3D &p)" << std::endl;
-		transformedRay.o = Vector3D(xTransformed, yTransformed, zTransformed) / wTransformed;
-	}
-
-	xTransformed = data[0][0] * v.x +
-		data[0][1] * v.y +
-		data[0][2] * v.z;
-
-	yTransformed = data[1][0] * v.x +
-		data[1][1] * v.y +
-		data[1][2] * v.z;
-
-	zTransformed = data[2][0] * v.x +
-		data[2][1] * v.y +
-		data[2][2] * v.z;
-
-	transformedRay.d = Vector3D(xTransformed, yTransformed, zTransformed);
+	transformedRay.o = transformPoint(r.o);
+	transformedRay.d = transformVector(r.d);	
 
     return transformedRay;
 }
