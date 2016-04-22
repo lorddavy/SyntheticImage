@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\core\bitmap.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\eqsolver.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\film.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\matrix4x4.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\ray.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\tester.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\utils.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\vector3d.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\camera.cpp">
+      <Filter>cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\ortographic.cpp">
+      <Filter>cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\perspective.cpp">
+      <Filter>cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shapes\shape.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shapes\sphere.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\core\bitmap.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\eqsolver.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\film.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\matrix4x4.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\ray.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\tester.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\utils.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\vector3d.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cameras\camera.h">
+      <Filter>cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cameras\ortographic.h">
+      <Filter>cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cameras\perspective.h">
+      <Filter>cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\shape.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\sphere.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{02dd890c-14a1-4b1c-b619-7b19212fc16d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cameras">
+      <UniqueIdentifier>{0facd2bc-26c3-48a1-aedd-3e71c15dd894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shape">
+      <UniqueIdentifier>{73128aff-834c-4726-921e-dfba1b4fd204}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

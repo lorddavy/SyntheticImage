@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\u93032\desktop\rtis_students\src\main.cpp(244): warning C4018: '<': no coinciden signed/unsigned
+c:\users\u93032\desktop\rtis_students\src\main.cpp(241): warning C4101: 'root': variable local sin referencia
+  VisualStudio2015.vcxproj -> C:\Users\u93032\Desktop\RTIS_Students\VisualStudio2015\x64\Debug\RTIS.exe
