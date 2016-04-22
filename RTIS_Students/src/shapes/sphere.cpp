@@ -9,7 +9,7 @@ bool Sphere::rayIntersectP(const Ray &ray) const
     // Pass the ray to local coordinates
     Ray r = worldToObject.transformRay(ray);
 
-    std::cout << "PLEASE COMPLETE THE Sphere::rayIntersectP() FUNCTION!" << std::endl;
+    //std::cout << "PLEASE COMPLETE THE Sphere::rayIntersectP() FUNCTION!" << std::endl;
 
     // The ray-sphere intersection equation can be expressed in the
     // form A*t^2 + B*t + C = 0, where:

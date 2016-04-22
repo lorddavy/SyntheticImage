@@ -211,9 +211,26 @@ void completeSphereClassExercise()
 	Vector3D p(0, 0, 3);
 	Matrix4x4 objectToWorld = Matrix4x4::translate(p);
 	Sphere s(1, objectToWorld);
+	Ray r1(Vector3D(0, 0, 0), Vector3D(0, 0, 1));
+	Ray r2(Vector3D(0, 0, 0), Vector3D(0, 1, 0));
+	std::string text = "";
 
 	std::cout << "\n" << s << "\n" << std::endl;
+	if (s.rayIntersectP(r1))
+		text = "True";
+	else
+		text = "False";
 
+	std::cout << "Testing intersection of Ray r = (0, 0, 0) + (0, 0, 1)t with the sphere:" << std::endl;
+	std::cout << "\n" << text << "\n" << std::endl;
+
+	if (s.rayIntersectP(r2))
+		text = "True";
+	else
+		text = "False";
+
+	std::cout << "Testing intersection of Ray r = (0, 0, 0) + (0, 1, 0)t with the sphere:" << std::endl;
+	std::cout << "\n" << text << "\n" << std::endl;
 }
 
 void eqSolverExercise()
