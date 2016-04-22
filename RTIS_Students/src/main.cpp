@@ -271,23 +271,63 @@ void raytrace()
     size_t resX, resY;
     resX = 512;
     resY = 512;
-    Film film(resX, resY);
+    Film film1(resX, resY);
+	Film film2(resX, resY);
+
+	Vector3D p(0, 0, 3);
+	Matrix4x4 objectToWorld = Matrix4x4::translate(p);
+	Sphere s(1, objectToWorld);
+	Ray r1;
+	Ray r2;
 
     /* ******************* */
     /* Orthographic Camera */
     /* ******************* */
     Matrix4x4 cameraToWorld; // By default, this gives an ID transform
                              // meaning that the camera space = world space
-    OrtographicCamera camOrtho(cameraToWorld, film);
+    OrtographicCamera camOrtho(cameraToWorld, film1);
+
+	for (int i = 0; i < resY; i++)
+	{
+		for (int j = 0; j < resX; j++)
+		{
+			r1 = camOrtho.generateRay(i/resY, j/resX);
+			if (s.rayIntersectP(r1))
+			{
+				film1.setPixelValue(i, j, Vector3D(1, 0, 0));
+			}
+			else {
+				film1.setPixelValue(i, j, Vector3D(0, 0, 0));
+			}
+			
+		}
+	}
 
     /* ******************* */
     /* Perspective Camera */
     /* ******************* */
     double fovRadians = Utils::degreesToRadians(60);
-    PerspectiveCamera camPersp(cameraToWorld, fovRadians, film);
+    PerspectiveCamera camPersp(cameraToWorld, fovRadians, film2);
+
+	for (int i = 0; i < resY; i++)
+	{
+		for (int j = 0; j < resX; j++)
+		{
+			r2 = camPersp.generateRay(i / resY, j / resX);
+			if (s.rayIntersectP(r2))
+			{
+				film2.setPixelValue(i, j, Vector3D(1, 0, 0));
+			}
+			else {
+				film2.setPixelValue(i, j, Vector3D(0, 0, 0));
+			}
+
+		}
+	}
 
     // Save the final result to file
-    film.save();
+    film1.save();
+	film2.save();
 }
 
 int main()
@@ -305,7 +345,7 @@ int main()
     // ASSIGNMENT 2
     eqSolverExercise();
     completeSphereClassExercise();
-    //raytrace();
+    raytrace();
 
     std::cout << "\n\n" << std::endl;
     return 0;
