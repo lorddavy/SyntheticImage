@@ -1,0 +1,5 @@
+﻿  depthshader.cpp
+c:\users\u93032\documents\github\syntheticimage\assignment 3\rtis_students_v2\src\shaders\depthshader.cpp(5): error C2084: la función 'DepthShader::DepthShader(void)' ya tiene un cuerpo
+  c:\users\u93032\documents\github\syntheticimage\assignment 3\rtis_students_v2\src\shaders\depthshader.h(9): note: vea la definición anterior de '{ctor}'
+  utils.cpp
+  Generando código...

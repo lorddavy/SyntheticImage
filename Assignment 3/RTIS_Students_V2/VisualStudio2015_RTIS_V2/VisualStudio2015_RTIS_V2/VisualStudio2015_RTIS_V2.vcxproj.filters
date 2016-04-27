@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\src\core\vector3d.cpp">
       <Filter>Archivos de código fuente\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shaders\depthshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">

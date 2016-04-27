@@ -15,36 +15,39 @@ Vector3D Utils::multiplyPerCanal(const Vector3D &v1, const Vector3D &v2)
 
 bool Utils::hasIntersection(const Ray &ray, const std::vector<Shape*> &objectsList)
 {
-    std::cout << "Need to implement the function Utils::hasIntersection() in the file utils.cpp" << std::endl;
+    //std::cout << "Need to implement the function Utils::hasIntersection() in the file utils.cpp" << std::endl;
 
-    // Write your code bellow
-    // (...)
-    //
     // For each object on the scene...
-    //for(size_t objIndex = 0; objIndex < objectsList.size(); objIndex ++)
-    //{
-    //      // Get the current object
-    //      const Shape *obj = objectsList.at(objIndex);
-    //      (...)
-    //}
-    //
-    // (...)
-    //
+    for(size_t objIndex = 0; objIndex < objectsList.size(); objIndex ++)
+    {
+    // Get the current object
+          const Shape *obj = objectsList.at(objIndex);
+
+		  //Check intersection
+		  if (obj->rayIntersectP(ray))
+			  return true;
+    }    
 
     return false;
 }
 
 bool Utils::getClosestIntersection(const Ray &cameraRay, const std::vector<Shape*> &objectsList, Intersection &its)
 {
-    std::cout << "Need to implement the function Utils::getClosestIntersection() in the file utils.cpp" << std::endl;
+	bool intersected = false;
+    //std::cout << "Need to implement the function Utils::getClosestIntersection() in the file utils.cpp" << std::endl;
 
-    //
-    // Write your code bellow
-    //
-    // (...)
-    //
+	// For each object on the scene...
+	for (size_t objIndex = 0; objIndex < objectsList.size(); objIndex++)
+	{
+		// Get the current object
+		const Shape *obj = objectsList.at(objIndex);
 
-    return false;
+		//Check intersection
+		if(obj->rayIntersect(cameraRay, its))
+			intersected = true;
+	}
+
+	return intersected;
 }
 
 double interpolate(double val, double y0, double x0, double y1, double x1 )
