@@ -6,7 +6,7 @@
 class DepthShader : public Shader
 {
 public:
-    DepthShader() = delete;
+    DepthShader();
     DepthShader(Vector3D color_, double maxDist_, Vector3D bgColor_);
 
     virtual Vector3D computeColor(const Ray &r,

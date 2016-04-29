@@ -14,6 +14,7 @@
 #include "cameras/perspective.h"
 
 #include "shaders/intersectionshader.h"
+#include "shaders/depthshader.h"
 
 void buildSceneSphere(Camera* &cam, Film* &film,
                       std::vector<Shape*>* &objectsList,
@@ -127,6 +128,7 @@ int main()
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
     Shader *shader = new IntersectionShader (intersectionColor, bgColor);
+	Shader *depthShader = new DepthShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
 
     // Declare pointers to all the variables which describe the scene
     Camera *cam;
@@ -137,7 +139,7 @@ int main()
     buildSceneSphere(cam, film, objectsList, lightSourceList);
 
     // Launch some rays!
-    raytrace(cam, shader, film, objectsList, lightSourceList);
+    raytrace(cam, depthShader, film, objectsList, lightSourceList);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
