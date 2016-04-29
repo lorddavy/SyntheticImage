@@ -1,7 +1,16 @@
 *.opendb
 *.sdf
 *.exe
-*.pdb
 *.suo
 *.db
 
+#Debug files
+*.ilk
+*.tlog
+*.lastbuildstate
+*.idb
+*.pdb
+
+#Release files
+*.iobj
+*.ipdb
