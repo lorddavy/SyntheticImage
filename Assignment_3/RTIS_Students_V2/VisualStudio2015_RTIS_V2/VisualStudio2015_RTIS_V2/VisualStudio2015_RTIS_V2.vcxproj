@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.cpp" />
     <ClCompile Include="..\..\src\cameras\camera.cpp" />
     <ClCompile Include="..\..\src\cameras\ortographic.cpp" />
     <ClCompile Include="..\..\src\cameras\perspective.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="..\..\src\shapes\sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.h" />
     <ClInclude Include="..\..\src\cameras\camera.h" />
     <ClInclude Include="..\..\src\cameras\ortographic.h" />
     <ClInclude Include="..\..\src\cameras\perspective.h" />

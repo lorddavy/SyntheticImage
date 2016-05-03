@@ -96,6 +96,9 @@
     <ClCompile Include="..\..\src\shaders\depthshader.cpp">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\core\vector3d.h">
       <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.h">
+      <Filter>Archivos de código fuente\materials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
