@@ -18,4 +18,4 @@ private:
     Vector3D color; // Used to store the visualization color
 };
 
-#endif // DIRECTSHADER_H
+#endif // DEPTHSHADER_H
