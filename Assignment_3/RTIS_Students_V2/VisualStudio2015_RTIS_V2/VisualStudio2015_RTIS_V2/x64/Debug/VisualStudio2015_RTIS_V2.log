@@ -1,7 +1,3 @@
-﻿  depthshader.cpp
-c:\users\u93032\documents\github\syntheticimage\assignment_3\rtis_students_v2\src\shaders\depthshader.cpp(19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  main.cpp
-  directshader.cpp
-  Generando código...
+﻿  main.cpp
   VisualStudio2015_RTIS_V2.vcxproj -> C:\Users\u93032\Documents\GitHub\SyntheticImage\Assignment_3\RTIS_Students_V2\VisualStudio2015_RTIS_V2\x64\Debug\VisualStudio2015_RTIS_V2.exe
   VisualStudio2015_RTIS_V2.vcxproj -> C:\Users\u93032\Documents\GitHub\SyntheticImage\Assignment_3\RTIS_Students_V2\VisualStudio2015_RTIS_V2\x64\Debug\VisualStudio2015_RTIS_V2.pdb (Partial PDB)

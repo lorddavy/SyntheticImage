@@ -96,10 +96,10 @@
     <ClCompile Include="..\..\src\shaders\depthshader.cpp">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.cpp">
+    <ClCompile Include="..\..\src\materials\phong.cpp">
       <Filter>Archivos de código fuente\materials</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\shaders\directshader.cpp">
+    <ClCompile Include="..\..\src\shaders\directshader.cpp">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,10 +164,10 @@
     <ClInclude Include="..\..\src\core\vector3d.h">
       <Filter>Archivos de código fuente\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\materials\phong.h">
+    <ClInclude Include="..\..\src\materials\phong.h">
       <Filter>Archivos de código fuente\materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\SyntheticImage\Assignment_3\RTIS_Students_V2\src\shaders\directshader.h">
+    <ClInclude Include="..\..\src\shaders\directshader.h">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClInclude>
   </ItemGroup>
