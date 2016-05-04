@@ -5,11 +5,13 @@
 *.db
 
 #Debug files
-*.ilk
-*.tlog
-*.lastbuildstate
 *.idb
+*.ilk
+*.lastbuildstate
+*.log
+*.obj
 *.pdb
+*.tlog
 
 #Release files
 *.iobj
