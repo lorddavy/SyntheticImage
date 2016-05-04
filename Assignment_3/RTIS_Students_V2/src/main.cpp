@@ -76,12 +76,13 @@ void buildSceneSphere(Camera* &cam, Film* &film,
     /* ****** */
     //
     // ADD YOUR LIGHT SOURCES HERE
-	PointLightSource *light1 = new PointLightSource(Vector3D(20,0,0), Vector3D(20,0,0));
-	PointLightSource *light2 = new PointLightSource(Vector3D(0, 20, 0), Vector3D(0, 20, 0));
-	PointLightSource *light3 = new PointLightSource(Vector3D(0, 0, 20), Vector3D(0, 0, 20));
+	PointLightSource light1(Vector3D(5, 0, 0), Vector3D(50, 50, 50));
+	PointLightSource light2 (Vector3D(0, 5, 0), Vector3D(50, 50, 50));
+	//PointLightSource *light3 = new PointLightSource(Vector3D(0, 0, 20), Vector3D(0, 0, 20));
     
     // DO NOT FORGET TO STORE THE LIGHT SOURCES IN THE "lightSourceList"
-	//lightSourceList->push_back(*light1);
+	lightSourceList->push_back(light1);
+	lightSourceList->push_back(light2);
     
 }
 
@@ -141,13 +142,13 @@ int main()
     // Declare pointers to all the variables which describe the scene
     Camera *cam;
     std::vector<Shape*> *objectsList;
-    std::vector<PointLightSource> *lightSourceList;
+    std::vector<PointLightSource> *lightSourceList = new std::vector<PointLightSource>;
 
     // Build the scene
     buildSceneSphere(cam, film, objectsList, lightSourceList);
 
     // Launch some rays!
-    raytrace(cam, depthShader, film, objectsList, lightSourceList);
+    raytrace(cam, directShader, film, objectsList, lightSourceList);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;

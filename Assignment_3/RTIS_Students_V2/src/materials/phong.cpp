@@ -1,4 +1,5 @@
 #include "phong.h"
+#include <algorithm>
 
 // Implement the Constructors here
 Phong::Phong(Vector3D kd_, Vector3D ks_, float s_)
@@ -32,8 +33,23 @@ Vector3D Phong::getReflectance(const Vector3D &n, const Vector3D &wo,
 
 	Vector3D wr = n * 2 * dot(n, wi) - wi;
 
+	
 	diffuse_color = kd * dot(wi,n);
-	specular_color = ks * pow(dot(wo, wr),s);
+	if (diffuse_color.x < 0)
+		diffuse_color.x = 0;
+	if (diffuse_color.y < 0)
+		diffuse_color.y = 0;
+	if (diffuse_color.z < 0)
+		diffuse_color.z = 0;
+
+	if (diffuse_color.x > 1)
+		diffuse_color.x = 1;
+	if (diffuse_color.y > 1)
+		diffuse_color.y = 1;
+	if (diffuse_color.z > 1)
+		diffuse_color.z = 1;
+
+	specular_color = ks * pow( std::max(dot(wo, wr), 0.0), s);
 
 	reflectance = diffuse_color + specular_color;
 	return reflectance;
