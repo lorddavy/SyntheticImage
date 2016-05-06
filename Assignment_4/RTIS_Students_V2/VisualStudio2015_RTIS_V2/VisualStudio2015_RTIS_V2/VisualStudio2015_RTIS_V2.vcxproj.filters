@@ -102,6 +102,9 @@
     <ClCompile Include="..\..\src\shaders\directshader.cpp">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shapes\infiniteplane.cpp">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\shaders\directshader.h">
       <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\infiniteplane.h">
+      <Filter>Archivos de código fuente\shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

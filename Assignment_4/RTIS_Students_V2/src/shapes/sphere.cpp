@@ -36,7 +36,6 @@ Vector3D Sphere::getNormalWorld(const Vector3D &pt_world) const
 bool Sphere::rayIntersect(const Ray &ray, Intersection &its) const
 {
     // Pass the ray to local coordinates
-    //Ray r = worldToObject.applyTransform(ray);
     Ray r = worldToObject.transformRay(ray);
 
     // The ray-sphere intersection equation can be expressed in the
