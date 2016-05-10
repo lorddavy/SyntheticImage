@@ -125,6 +125,7 @@
     <ClCompile Include="..\..\src\lightsources\pointlightsource.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\materials\material.cpp" />
+    <ClCompile Include="..\..\src\materials\mirror.cpp" />
     <ClCompile Include="..\..\src\materials\phong.cpp" />
     <ClCompile Include="..\..\src\shaders\depthshader.cpp" />
     <ClCompile Include="..\..\src\shaders\directshader.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="..\..\src\core\vector3d.h" />
     <ClInclude Include="..\..\src\lightsources\pointlightsource.h" />
     <ClInclude Include="..\..\src\materials\material.h" />
+    <ClInclude Include="..\..\src\materials\mirror.h" />
     <ClInclude Include="..\..\src\materials\phong.h" />
     <ClInclude Include="..\..\src\shaders\depthshader.h" />
     <ClInclude Include="..\..\src\shaders\directshader.h" />

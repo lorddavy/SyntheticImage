@@ -105,6 +105,9 @@
     <ClCompile Include="..\..\src\shapes\infiniteplane.cpp">
       <Filter>Archivos de código fuente\shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\materials\mirror.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\shapes\infiniteplane.h">
       <Filter>Archivos de código fuente\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\materials\mirror.h">
+      <Filter>Archivos de código fuente\materials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

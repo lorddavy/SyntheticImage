@@ -33,7 +33,7 @@ Vector3D Phong::getReflectance(const Vector3D &n, const Vector3D &wo,
 
 	Vector3D wr = n * 2 * dot(n, wi) - wi;
 
-	
+
 	diffuse_color = kd * dot(wi,n);
 	if (diffuse_color.x < 0)
 		diffuse_color.x = 0;

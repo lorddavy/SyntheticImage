@@ -18,6 +18,7 @@
 #include "shaders/depthshader.h"
 #include "shaders/directshader.h"
 #include "materials/phong.h"
+#include "materials/mirror.h"
 
 void buildSceneSphere(Camera* &cam, Film* &film,
                       std::vector<Shape*>* &objectsList,
@@ -148,9 +149,10 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 	Material *greyDiffuse = new Phong(Vector3D(0.8, 0.8, 0.8), Vector3D(0, 0, 0), 100);
 	Material *blueDiffuse = new Phong(Vector3D(0.3, 0.2, 0.7), Vector3D(0, 0, 0), 100);
 	//Material *transmissive = new Transmissive(1.1, Vector3D(1));
+	Material *mirror = new Mirror();
 	//Material *mirror = new Mirror(Vector3D(1, 0.9, 0.85));
 	Material *transmissive = new Phong(Vector3D(1, 1, 0.2), Vector3D(1, 1, 0.2), 20);
-	Material *mirror = new Phong(Vector3D(0.0, 0.9, 0.9), Vector3D(0.1, 0.9, 0.9), 50);
+	//Material *mirror = new Phong(Vector3D(0.0, 0.9, 0.9), Vector3D(0.1, 0.9, 0.9), 50);
 
 	Material *red_100 = new Phong(Vector3D(0.7, 0.2, 0.3), Vector3D(0.7, 0.7, 0.2), 100);
 
