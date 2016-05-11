@@ -2,9 +2,9 @@
 #include <algorithm>
 
 // Implement the Constructors here
-Mirror::Mirror()
+Mirror::Mirror(Vector3D color_)
+: color(color_)
 {}
-
 
 bool Mirror::hasSpecular() const
 {
@@ -23,8 +23,7 @@ bool Mirror::hasDiffuseOrGlossy() const
 
 // Implement the function "getReflectance" here
 Vector3D Mirror::getReflectance(const Vector3D &n, const Vector3D &wo,
-	const Vector3D &wi) const 
+	const Vector3D &wi) const
 {
-	return Vector3D(1);
-
+	return color;
 }
