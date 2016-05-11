@@ -43,7 +43,9 @@ Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 		{			
 			Vector3D wr = Utils::computeReflectionDirection(r.d, n);
 			Ray reflectionRay(closestInt.itsPoint, wr, r.depth+1);
-			color += computeColor(reflectionRay, objList, lsList);
+			Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(Vector3D(0,0,0), Vector3D(0, 0, 0), Vector3D(0, 0, 0));
+			color += Utils::multiplyPerCanal(computeColor(reflectionRay, objList, lsList),reflectance);
+
 		}
 		if (closestInt.shape->getMaterial().hasTransmission())
 		{
