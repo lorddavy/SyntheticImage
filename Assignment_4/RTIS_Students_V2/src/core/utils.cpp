@@ -100,7 +100,17 @@ Vector3D Utils::computeReflectionDirection(const Vector3D &rayDirection, const V
 bool Utils::isTotalInternalReflection(const double &eta, const double &cosThetaI,
                                       double &cosThetaT_out)
 {
-    return 1 + eta * eta * (cosThetaI * cosThetaI - 1) < 0;
+
+	float radicant = 1 + eta * eta * (cosThetaI * cosThetaI - 1);
+	if (radicant > 0) {
+		cosThetaT_out = sqrt(radicant);
+		return false;
+	}
+	
+	return true;
+	
+	
+	//return cosThetaT_out < 0;
 }
 
 Vector3D Utils::computeTransmissionDirection(const Ray &r, const Vector3D &normal,
