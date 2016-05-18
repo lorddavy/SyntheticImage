@@ -149,7 +149,7 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 	Material *greenDiffuse = new Phong(Vector3D(0.2, 0.7, 0.3), Vector3D(0, 0, 0), 100);
 	Material *greyDiffuse = new Phong(Vector3D(0.8, 0.8, 0.8), Vector3D(0, 0, 0), 100);
 	Material *blueDiffuse = new Phong(Vector3D(0.3, 0.2, 0.7), Vector3D(0, 0, 0), 100);
-	Material *transmissive = new Transmissive(1.5, Vector3D(1));
+	Material *transmissive = new Transmissive(1.1, Vector3D(1));
 	Material *mirror = new Mirror(Vector3D(1, 0.9, 0.85));
 	//Material *mirror = new Mirror(Vector3D(1, 0.9, 0.85));
 	//Material *transmissive = new Phong(Vector3D(1, 1, 0.2), Vector3D(1, 1, 0.2), 20);

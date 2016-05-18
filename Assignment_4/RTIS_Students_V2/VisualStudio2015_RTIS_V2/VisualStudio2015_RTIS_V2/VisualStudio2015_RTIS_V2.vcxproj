@@ -130,6 +130,7 @@
     <ClCompile Include="..\..\src\materials\transmissive.cpp" />
     <ClCompile Include="..\..\src\shaders\depthshader.cpp" />
     <ClCompile Include="..\..\src\shaders\directshader.cpp" />
+    <ClCompile Include="..\..\src\shaders\globalshader.cpp" />
     <ClCompile Include="..\..\src\shaders\intersectionshader.cpp" />
     <ClCompile Include="..\..\src\shaders\normalshader.cpp" />
     <ClCompile Include="..\..\src\shaders\shader.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="..\..\src\materials\transmissive.h" />
     <ClInclude Include="..\..\src\shaders\depthshader.h" />
     <ClInclude Include="..\..\src\shaders\directshader.h" />
+    <ClInclude Include="..\..\src\shaders\globalshader.h" />
     <ClInclude Include="..\..\src\shaders\intersectionshader.h" />
     <ClInclude Include="..\..\src\shaders\normalshader.h" />
     <ClInclude Include="..\..\src\shaders\shader.h" />

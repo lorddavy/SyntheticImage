@@ -111,6 +111,9 @@
     <ClCompile Include="..\..\src\materials\transmissive.cpp">
       <Filter>Archivos de código fuente\materials</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\shaders\globalshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\materials\transmissive.h">
       <Filter>Archivos de código fuente\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\globalshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

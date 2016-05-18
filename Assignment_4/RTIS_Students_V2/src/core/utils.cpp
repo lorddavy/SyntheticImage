@@ -102,13 +102,11 @@ bool Utils::isTotalInternalReflection(const double &eta, const double &cosThetaI
 {
 
 	float radicant = 1 + eta * eta * (cosThetaI * cosThetaI - 1);
-	if (radicant > 0) {
-		cosThetaT_out = sqrt(radicant);
-		return false;
+	if (radicant < 0) {
+		return true;		
 	}
-	
-	return true;
-	
+	cosThetaT_out = sqrt(radicant);
+	return false;	
 	
 	//return cosThetaT_out < 0;
 }
@@ -117,7 +115,7 @@ Vector3D Utils::computeTransmissionDirection(const Ray &r, const Vector3D &norma
                                              const double &eta, const double &cosThetaI,
                                              const double &cosThetaT)
 {
-	return -r.d * eta + normal * (eta * cosThetaI - cosThetaT);
+	return (-r.d) * eta + normal * (eta * cosThetaI - cosThetaT);
 }
 
 double Utils::computeReflectanceCoefficient(const double &eta, const double &cosThetaI,

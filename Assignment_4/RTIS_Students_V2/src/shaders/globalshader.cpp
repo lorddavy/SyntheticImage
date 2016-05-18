@@ -1,19 +1,19 @@
-﻿#include "directshader.h"
+﻿#include "globalshader.h"
 #include "../core/utils.h"
 
-DirectShader::DirectShader()
+GlobalShader::GlobalShader()
 {}
 
-DirectShader::DirectShader(Vector3D color_, double maxDist_, Vector3D bgColor_) :
+GlobalShader::GlobalShader(Vector3D color_, double maxDist_, Vector3D bgColor_) :
 	color(color_), Shader(bgColor_)
 {}
 
 
-Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &objList, const std::vector<PointLightSource> &lsList) const
+Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &objList, const std::vector<PointLightSource> &lsList) const
 {
 	Intersection closestInt;
 	Vector3D color = Vector3D(0, 0, 0);
-	int maxDepth = 10;
+	int maxDepth = 5;
 
 	if (Utils::getClosestIntersection(r, objList, closestInt))
 	{
@@ -61,13 +61,13 @@ Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 					n *= -1;
 				}
 
-				cosThetaT_out = sqrt(1 + eta*eta*(cosThetaI*cosThetaI - 1));
+				//cosThetaT_out = sqrt(1 + eta*eta*(cosThetaI*cosThetaI - 1));
 
 				Vector3D wt = Utils::computeTransmissionDirection(r, n, eta, cosThetaI, cosThetaT_out);
 				
 				if (r.depth < maxDepth)
 				{
-					Ray refractionRay(closestInt.itsPoint, -wt, r.depth + 1);
+					Ray refractionRay(closestInt.itsPoint, wt, r.depth + 1);
 					//Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0));
 					//color += Utils::multiplyPerCanal(computeColor(refractionRay, objList, lsList), reflectance);
 					color = computeColor(refractionRay, objList, lsList);
