@@ -46,28 +46,27 @@ Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 		}		
 		if (transmission)
 		{
+			
 			double eta = closestInt.shape->getMaterial().getIndexOfRefraction();
 			double cosThetaI = dot(-r.d, n);
 			double cosThetaT_out;
-			
-			//For debug
-			//Ray refractionRay(closestInt.itsPoint, r.d, r.depth + 1);
+
+			if (cosThetaI < 0)
+			{
+				n *= -1;
+				eta = 1 / closestInt.shape->getMaterial().getIndexOfRefraction();
+				cosThetaI = dot(-r.d, n);
+			}			
 
 			if (!Utils::isTotalInternalReflection(eta, cosThetaI, cosThetaT_out))
 			{		
-				if (cosThetaI < 0)
-				{
-					cosThetaI *= -1;
-					n *= -1;
-				}
-
 				cosThetaT_out = sqrt(1 + eta*eta*(cosThetaI*cosThetaI - 1));
 
 				Vector3D wt = Utils::computeTransmissionDirection(r, n, eta, cosThetaI, cosThetaT_out);
 				
 				if (r.depth < maxDepth)
 				{
-					Ray refractionRay(closestInt.itsPoint, -wt, r.depth + 1);
+					Ray refractionRay(closestInt.itsPoint, wt, r.depth + 1);
 					//Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0));
 					//color += Utils::multiplyPerCanal(computeColor(refractionRay, objList, lsList), reflectance);
 					color = computeColor(refractionRay, objList, lsList);

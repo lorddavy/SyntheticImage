@@ -115,7 +115,7 @@ Vector3D Utils::computeTransmissionDirection(const Ray &r, const Vector3D &norma
                                              const double &eta, const double &cosThetaI,
                                              const double &cosThetaT)
 {
-	return (-r.d) * eta + normal * (eta * cosThetaI - cosThetaT);
+	return (r.d) * eta + normal * (eta * cosThetaI - cosThetaT);
 }
 
 double Utils::computeReflectanceCoefficient(const double &eta, const double &cosThetaI,
