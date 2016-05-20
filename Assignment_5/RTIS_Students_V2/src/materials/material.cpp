@@ -19,5 +19,5 @@ Vector3D Material::getDiffuseCoefficient() const
 		<< "Calling \"Material::getDiffuseCoefficient()\""
 		<< "for a non-diffuse or non-glossy material"
 		<< std::endl;*/
-	return Vector3D(0);
+	return Vector3D(-1);
 }

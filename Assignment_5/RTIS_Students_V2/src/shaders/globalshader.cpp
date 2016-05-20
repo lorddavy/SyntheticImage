@@ -25,11 +25,30 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 	if (Utils::getClosestIntersection(r, objList, closestInt))
 	{
 		Vector3D kd = closestInt.shape->getMaterial().getDiffuseCoefficient();
-		Vector3D iInd = kd * at;
+		if (kd.x != -1)
+		{
+			//Vector3D iInd = kd * at;
+			if (r.depth == 0)
+			{
+				int nSamples;
+				Vector3D result = Vector3D(0);
 
-		color = iDir + iInd;
+				for (int i = 0; i < nSamples; i++) {
+					Vector3D formula; //calculate formula
+					result += formula;
+				}		
+				
+				Vector3D iInd = 
+			}
+
+			color = iDir + iInd;
+		}
+		else {
+			color = iDir;
+		}
+		
 		return color;
 	}
 
-	return bgColor;
+	return iDir;
 }
