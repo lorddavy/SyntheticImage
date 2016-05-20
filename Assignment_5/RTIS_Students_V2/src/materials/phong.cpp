@@ -55,3 +55,8 @@ Vector3D Phong::getReflectance(const Vector3D &n, const Vector3D &wo,
 	return reflectance;
 
 }
+
+Vector3D Phong::getDiffuseCoefficient() const
+{
+	return kd;
+}

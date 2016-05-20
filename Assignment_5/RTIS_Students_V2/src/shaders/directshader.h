@@ -15,6 +15,7 @@ public:
 
 private:
 	Vector3D color; // Used to store the visualization color
+	double maxDist;
 };
 
 #endif // DIRECTSHADER_H

@@ -5,7 +5,7 @@ DirectShader::DirectShader()
 {}
 
 DirectShader::DirectShader(Vector3D color_, double maxDist_, Vector3D bgColor_) :
-	color(color_), Shader(bgColor_)
+	color(color_), Shader(bgColor_), maxDist(maxDist_)
 {}
 
 
@@ -13,7 +13,6 @@ Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 {
 	Intersection closestInt;
 	Vector3D color = Vector3D(0, 0, 0);
-	int maxDepth = 10;
 
 	if (Utils::getClosestIntersection(r, objList, closestInt))
 	{
@@ -64,7 +63,7 @@ Vector3D DirectShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 
 				Vector3D wt = Utils::computeTransmissionDirection(r, n, eta, cosThetaI, cosThetaT_out);
 				
-				if (r.depth < maxDepth)
+				if (r.depth < maxDist)
 				{
 					Ray refractionRay(closestInt.itsPoint, wt, r.depth + 1);
 					//Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0));
