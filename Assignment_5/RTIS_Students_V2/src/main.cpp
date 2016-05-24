@@ -200,7 +200,7 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 	Vector3D lightPosition1 = Vector3D(0, offset - 1, 2 * offset);
 	Vector3D lightPosition2 = Vector3D(0, offset - 1, 0);
 	Vector3D lightPosition3 = Vector3D(0, offset - 1, offset);
-	Vector3D intensity = Vector3D(10, 10, 10); // Radiant intensity (watts/sr)
+	Vector3D intensity = Vector3D(10,10,10); // Radiant intensity (watts/sr)
 	PointLightSource pointLS1(lightPosition1, intensity);
 	PointLightSource pointLS2(lightPosition2, intensity);
 	PointLightSource pointLS3(lightPosition3, intensity);
