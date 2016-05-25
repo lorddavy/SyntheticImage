@@ -114,6 +114,9 @@
     <ClCompile Include="..\..\src\shaders\globalshader.cpp">
       <Filter>Archivos de código fuente\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\hemisphericalsampler.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cameras\camera.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\shaders\globalshader.h">
       <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\hemisphericalsampler.h">
+      <Filter>Archivos de código fuente\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

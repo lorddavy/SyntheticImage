@@ -1,6 +1,7 @@
 ﻿#include "globalshader.h"
 #include "directshader.h"
 #include "../core/utils.h"
+#include "../core/hemisphericalsampler.h"
 
 GlobalShader::GlobalShader()
 {}
@@ -14,7 +15,7 @@ GlobalShader::GlobalShader(Vector3D color_, double maxDist_, Vector3D bgColor_) 
 
 Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &objList, const std::vector<PointLightSource> &lsList) const
 {
-	Vector3D iDir;
+	//Vector3D iDir;
 	//DirectShader directShader = DirectShader(color, maxDist, bgColor);
 	//Vector3D iDir = directShader->computeColor(r, objList, lsList);
 
@@ -27,10 +28,13 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 		Vector3D p = closestInt.itsPoint;
 		Vector3D n = closestInt.normal;
 
+		Vector3D iDir;
+		Vector3D iInd;
+
 		bool diffuse = closestInt.shape->getMaterial().hasDiffuseOrGlossy();
 		bool specular = closestInt.shape->getMaterial().hasSpecular();
 		bool transmission = closestInt.shape->getMaterial().hasTransmission();
-
+		
 		if (diffuse)
 		{
 			for (int i = 0; i < lsList.size(); i++)
@@ -51,24 +55,30 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 				}
 			}
 
-			float at = 0.1;
+			float at = 0.1; //Se tendra que pasar como parametro
 			Vector3D kd = closestInt.shape->getMaterial().getDiffuseCoefficient();
-			Vector3D iInd = kd * at;
+			//Vector3D iInd;
 
-			/*
+			
 			if (r.depth == 0)
 			{
-				int nSamples = 10;
-				Vector3D result = Vector3D(0);
+				int nSamples = 100;
+				Vector3D sumatory = Vector3D(0);
+				HemisphericalSampler sampler;
 
 				for (int i = 0; i < nSamples; i++) {
-					Vector3D formula; //calculate formula
-					result += formula;
+					Vector3D wi_dir = sampler.getSample(n);
+					Ray wi = Ray(p, wi_dir, r.depth + 1);
+
+					Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(n, -r.d, wi_dir);
+					sumatory += Utils::multiplyPerCanal(computeColor(wi, objList, lsList), reflectance);
+					//sumatory += computeColor(wi, objList, lsList);
 				}
 
-				iInd = Vector3D(1, 0, 0);
-			}*/
-
+				iInd = sumatory / nSamples;
+			}else if (r.depth > 0) {
+				iInd = kd * at;
+			}
 			color = iDir + iInd;
 		}
 		if (transmission)
@@ -93,7 +103,7 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 
 				if (r.depth < maxDist)
 				{
-					Ray refractionRay(closestInt.itsPoint, wt, r.depth + 1);
+					Ray refractionRay(closestInt.itsPoint, wt, r.depth);
 					color = computeColor(refractionRay, objList, lsList);
 				}
 			}
@@ -105,7 +115,7 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 		if (specular)
 		{
 			Vector3D wr = Utils::computeReflectionDirection(r.d, n);
-			Ray reflectionRay(closestInt.itsPoint, wr, r.depth + 1);
+			Ray reflectionRay(closestInt.itsPoint, wr, r.depth);
 			Vector3D reflectance = closestInt.shape->getMaterial().getReflectance(Vector3D(0, 0, 0), Vector3D(0, 0, 0), Vector3D(0, 0, 0));
 			color += Utils::multiplyPerCanal(computeColor(reflectionRay, objList, lsList), reflectance);
 

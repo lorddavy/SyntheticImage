@@ -116,6 +116,7 @@
     <ClCompile Include="..\..\src\core\bitmap.cpp" />
     <ClCompile Include="..\..\src\core\eqsolver.cpp" />
     <ClCompile Include="..\..\src\core\film.cpp" />
+    <ClCompile Include="..\..\src\core\hemisphericalsampler.cpp" />
     <ClCompile Include="..\..\src\core\intersection.cpp" />
     <ClCompile Include="..\..\src\core\matrix4x4.cpp" />
     <ClCompile Include="..\..\src\core\ray.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="..\..\src\core\bitmap.h" />
     <ClInclude Include="..\..\src\core\eqsolver.h" />
     <ClInclude Include="..\..\src\core\film.h" />
+    <ClInclude Include="..\..\src\core\hemisphericalsampler.h" />
     <ClInclude Include="..\..\src\core\intersection.h" />
     <ClInclude Include="..\..\src\core\matrix4x4.h" />
     <ClInclude Include="..\..\src\core\ray.h" />
