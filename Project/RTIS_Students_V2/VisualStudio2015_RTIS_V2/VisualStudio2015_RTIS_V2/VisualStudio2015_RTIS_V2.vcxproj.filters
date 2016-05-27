@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de código fuente">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de código fuente\cameras">
+      <UniqueIdentifier>{34e659a3-a16a-4f2e-a2ec-7e1b9e6209a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\core">
+      <UniqueIdentifier>{6d305e3c-9e3a-45f9-a9a3-f5372158e394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\lightsources">
+      <UniqueIdentifier>{c88b255b-d432-47a8-ae29-ecf10cace443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\materials">
+      <UniqueIdentifier>{d325a392-fe55-4988-941d-f5723df50bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\shaders">
+      <UniqueIdentifier>{b32e709d-ea1a-4bf2-bed4-97e70fc457ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\shapes">
+      <UniqueIdentifier>{97f6eba9-f817-4cef-bbd8-3dc602cee486}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\camera.cpp">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\ortographic.cpp">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cameras\perspective.cpp">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lightsources\pointlightsource.cpp">
+      <Filter>Archivos de código fuente\lightsources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\materials\material.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\intersectionshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\shader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\normalshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shapes\shape.cpp">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shapes\sphere.cpp">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\bitmap.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\eqsolver.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\film.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\intersection.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\matrix4x4.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\ray.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\tester.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\utils.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\vector3d.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\depthshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\materials\phong.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\directshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shapes\infiniteplane.cpp">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\materials\mirror.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\materials\transmissive.cpp">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shaders\globalshader.cpp">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\hemisphericalsampler.cpp">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\cameras\camera.h">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cameras\ortographic.h">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cameras\perspective.h">
+      <Filter>Archivos de código fuente\cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\lightsources\pointlightsource.h">
+      <Filter>Archivos de código fuente\lightsources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\materials\material.h">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\depthshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\intersectionshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\shader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\normalshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\shape.h">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\sphere.h">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\bitmap.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\eqsolver.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\film.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\intersection.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\matrix4x4.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\ray.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\tester.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\utils.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\vector3d.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\materials\phong.h">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\directshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shapes\infiniteplane.h">
+      <Filter>Archivos de código fuente\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\materials\mirror.h">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\materials\transmissive.h">
+      <Filter>Archivos de código fuente\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\shaders\globalshader.h">
+      <Filter>Archivos de código fuente\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\hemisphericalsampler.h">
+      <Filter>Archivos de código fuente\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
