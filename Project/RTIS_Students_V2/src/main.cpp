@@ -259,48 +259,155 @@ void delimitColor(Vector3D* color) {
 	if (color->z > 1) color->z = 1;
 }
 
-Vector3D colorAvg(int x, int y, Film* source, int delta) {
+Vector3D colorAvg(int x, int y, Film* film, int delta) {
 	Vector3D color = (0, 0, 0);
 	Vector3D addColor;
 
+	// Version de David
+	/*int deltaXMin = -delta;
+	int deltaXMax = delta;
+	int deltaYMin = -delta;
+	int	deltaYMax = delta;
+
+	if (x - delta < 0) deltaXMin = 0;
+	if (y - delta < 0) deltaYMin = 0;
+	if (x + delta > film->getWidth() - 1) deltaXMax = 0;
+	if (y + delta > film->getHeight() - 1) deltaYMax = 0;
+
+	for (int i = deltaXMin; i <= deltaXMax; i++) {
+		for (int j = deltaYMin; j <= deltaYMax; j++) {
+			addColor = film->getPixelValue(x + i, y + j);
+			delimitColor(&addColor);
+			color += addColor;
+		}
+	}*/
+
+	// Version de Martí
+	int maxX = film->getWidth() - delta -1;
+	int maxY = film->getHeight() - delta -1;
+
+	if (x < delta) x = delta;
+	if (y < delta) y = delta;
+	if (x > maxX) x = maxX;
+	if (y > maxY) y = maxY;
+
 	for (int i = -delta; i <= delta; i++) {
 		for (int j = -delta; j <= delta; j++) {
-			addColor = source->getPixelValue(x + i, y + j);
+			addColor = film->getPixelValue(x + i, y + j);
 			delimitColor(&addColor);
 			color += addColor;
 		}
 	}
 
+	// return
 	int filterSize = (delta * 2 + 1) * (delta * 2 + 1);
 	color /= filterSize;
 	return color;
 }
 
-void fillMask(Film* mask, Film* film) {
+bool compareEachPixel(int x, int y, Film* film, int delta, double threshold)
+{
+	Vector3D color = film->getPixelValue(x, y);
+	delimitColor(&color);
+	Vector3D nextColor, dif;
 
+	// Version de David
+	int deltaXMin = -delta;
+	int deltaXMax = delta;
+	int deltaYMin = -delta;
+	int	deltaYMax = delta;
+
+	if (x - delta < 0) deltaXMin = 0;
+	if (y - delta < 0) deltaYMin = 0;
+	if (x + delta > film->getWidth() - 1) deltaXMax = 0;
+	if (y + delta > film->getHeight() - 1) deltaYMax = 0;
+
+	for (int i = deltaXMin; i <= deltaXMax; i++) {
+		for (int j = deltaYMin; j <= deltaYMax; j++) {
+			nextColor = film->getPixelValue(x + i, y + j);
+			delimitColor(&nextColor);
+			
+			dif = color - nextColor;
+			if(dif.length() > threshold) return true;
+		}
+	}
+
+	return false;
+}
+
+void fillMask(Film* mask, Film* film)
+{
 	int delta = 2;
-	double threshold = 0.01;
+	double threshold = 0.1;
 	Vector3D color = (0, 0, 0);
 	int resX = film->getWidth();
 	int resY = film->getHeight();
 
-	std::cout << "Fill the Mask film" << std::endl;
+	std::cout << std::endl << std::endl << "Fill the Mask film" << std::endl;
 
-	for (int i = delta; i < resX - delta; i++) {
-		for (int j = delta; j < resY - delta; j++) {
+	for (int i = 0; i < resX; i++) {
+		for (int j = 0; j < resY; j++) {
 
 			Vector3D filmColor = film->getPixelValue(i, j);
 			delimitColor(&filmColor);
 
-			Vector3D color = colorAvg(i, j, film, delta) - filmColor;
+			/*Vector3D color = colorAvg(i, j, film, delta) - filmColor;
 			if (color.length() > threshold) {
 				mask->setPixelValue(i, j, Vector3D(1,1,1));
-				//And then compute the film4rpp in this pixel
+			}*/
+
+			if(compareEachPixel(i, j, film, delta, threshold))
+				mask->setPixelValue(i, j, Vector3D(1, 1, 1));
+
+		}
+	}
+	//mask->save();
+}
+
+void launchMoreRays(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Film* &mask,
+	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
+{
+	size_t resX = film->getWidth();
+	size_t resY = film->getHeight();
+
+	Vector3D pixelColor;
+
+	for (int j = 0; j < resY; j++) {
+		for (int i = 0; i < resX; i++) {
+
+			Vector3D maskColor = mask->getPixelValue(i, j);
+			if (maskColor.x == 1.0) {
+
+				double x1 = (double)(i + 0.25) / resX;
+				double y1 = (double)(j + 0.25) / resY;
+				double x2 = (double)(i + 0.25) / resX;
+				double y2 = (double)(j + 0.75) / resY;
+				double x3 = (double)(i + 0.75) / resX;
+				double y3 = (double)(j + 0.25) / resY;
+				double x4 = (double)(i + 0.75) / resX;
+				double y4 = (double)(j + 0.75) / resY;
+
+				Ray ray1 = cam->generateRay(x1, y1);
+				Ray ray2 = cam->generateRay(x2, y2);
+				Ray ray3 = cam->generateRay(x3, y3);
+				Ray ray4 = cam->generateRay(x4, y4);
+
+				Vector3D color1 = shader->computeColor(ray1, *objectsList, *lightSourceList);
+				Vector3D color2 = shader->computeColor(ray2, *objectsList, *lightSourceList);
+				Vector3D color3 = shader->computeColor(ray3, *objectsList, *lightSourceList);
+				Vector3D color4 = shader->computeColor(ray4, *objectsList, *lightSourceList);
+
+				Vector3D sum = color1 + color2 + color3 + color4 + film->getPixelValue(i, j);
+				pixelColor = sum / 5;
+
+				result->setPixelValue(i, j, pixelColor);
+			}else{
+				pixelColor = film->getPixelValue(i, j);
+				result->setPixelValue(i, j, pixelColor);
 			}
 		}
 	}
 
-	mask->save();
 
 }
 
@@ -318,7 +425,6 @@ int main()
     film = new Film(filmWidth, filmHeight);
 
 	Film* mask = new Film(filmWidth, filmHeight);
-	Film* film2 = new Film(filmWidth, filmHeight);
 	Film* result = new Film(filmWidth, filmHeight);
 
     // Declare the shader
@@ -336,22 +442,17 @@ int main()
 
     // Launch some rays!
     raytrace(cam, shader, film, objectsList, lightSourceList);
-
-	fillMask(mask, film);
-	
 	//raytrace4rpp(cam, shader, film, objectsList, lightSourceList);
-
-	for (int j = 0; j < filmHeight; j++) {
-		for (int i = 0; i < filmWidth; i++) {
-			Vector3D color = film->getPixelValue(i, j) + Utils::multiplyPerCanal(mask->getPixelValue(i, j), film2->getPixelValue(i, j));
-			color = color / 2;
-			result->setPixelValue(i, j, color);
-		}
-	}
+	
+	// Antialiasing
+	fillMask(mask, film);
+	launchMoreRays(cam, shader, result, film, mask, objectsList, lightSourceList);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
     //film->save();
+	//mask->save();
+	result->save();
 
     std::cout << "\n\n" << std::endl;
     return 0;
