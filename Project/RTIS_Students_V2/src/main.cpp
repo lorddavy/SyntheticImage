@@ -450,9 +450,10 @@ int main()
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
-    //film->save();
-	//mask->save();
-	result->save();
+    
+	film->save("./first.bmp");
+	mask->save("./mask.bmp");
+	result->save("./result.bmp");
 
     std::cout << "\n\n" << std::endl;
     return 0;

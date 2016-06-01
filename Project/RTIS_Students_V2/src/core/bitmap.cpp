@@ -112,7 +112,7 @@ int BitMap::read(Vector3D** &dataOut, size_t &widthOut, size_t &heightOut, std::
     }
 }
 
-int BitMap::save(Vector3D** &data, const size_t &width, const size_t &height)
+int BitMap::save(Vector3D** &data, const size_t &width, const size_t &height, const char* filename)
 {
     // Create file header
     bmp24_file_header fileHeader;
@@ -121,7 +121,7 @@ int BitMap::save(Vector3D** &data, const size_t &width, const size_t &height)
     bmp24_info_header infoHeader(width, height);
 
     std::ofstream outputFile;
-    outputFile.open("./output.bmp", std::ios::binary | std::ios::out);
+    outputFile.open(filename, std::ios::binary | std::ios::out);
 
     if(outputFile.is_open())
     {

@@ -29,7 +29,7 @@ public:
     void setPixelValue(size_t w, size_t h, Vector3D &value);
 
     // Other functions
-    int save();
+    int save(const char* filename);
     void clearData();
 
 private:

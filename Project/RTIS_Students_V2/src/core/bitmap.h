@@ -105,7 +105,7 @@ class BitMap
 public:
     BitMap();
 
-    static int save(Vector3D** &data, const size_t &width, const size_t &height);
+    static int save(Vector3D** &data, const size_t &width, const size_t &height, const char* filename);
     static int read(Vector3D** &dataOut, size_t &width, size_t &height, std::string &fileName);
 };
 
