@@ -133,49 +133,6 @@ void raytrace(Camera* &cam, Shader* &shader, Film* &film,
     }
 }
 
-void raytrace4rpp(Camera* &cam, Shader* &shader, Film* &film,
-	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
-{
-	unsigned int sizeBar = 40;
-
-	size_t resX = film->getWidth();
-	size_t resY = film->getHeight();
-
-	for (size_t lin = 0; lin<resY; lin++)
-	{
-		// Show progression
-		if (lin % (resY / sizeBar) == 0)
-			std::cout << ".";
-
-		for (size_t col = 0; col<resX; col++)
-		{
-			double x1 = (double)(col + 0.25) / resX;
-			double y1 = (double)(lin + 0.25) / resY;
-			double x2 = (double)(col + 0.25) / resX;
-			double y2 = (double)(lin + 0.75) / resY;
-			double x3 = (double)(col + 0.75) / resX;
-			double y3 = (double)(lin + 0.25) / resY;
-			double x4 = (double)(col + 0.75) / resX;
-			double y4 = (double)(lin + 0.75) / resY;
-
-			Ray ray1 = cam->generateRay(x1, y1);
-			Ray ray2 = cam->generateRay(x2, y2);
-			Ray ray3 = cam->generateRay(x3, y3);
-			Ray ray4 = cam->generateRay(x4, y4);
-
-			Vector3D color1 = shader->computeColor(ray1, *objectsList, *lightSourceList);
-			Vector3D color2 = shader->computeColor(ray2, *objectsList, *lightSourceList);
-			Vector3D color3 = shader->computeColor(ray3, *objectsList, *lightSourceList);
-			Vector3D color4 = shader->computeColor(ray4, *objectsList, *lightSourceList);
-
-			Vector3D sum = color1 + color2 + color3 + color4;
-			Vector3D pixelColor = sum / 4;
-
-			film->setPixelValue(col, lin, pixelColor);
-		}
-	}
-}
-
 void buildSceneCornellBox(Camera* &cam, Film* &film,
 	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
 {
@@ -253,6 +210,100 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 }
 
 
+void raytrace4rpp(Camera* &cam, Shader* &shader, Film* &film,
+	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
+{
+	unsigned int sizeBar = 40;
+
+	size_t resX = film->getWidth();
+	size_t resY = film->getHeight();
+
+	for (size_t lin = 0; lin<resY; lin++)
+	{
+		// Show progression
+		if (lin % (resY / sizeBar) == 0)
+			std::cout << ".";
+
+		for (size_t col = 0; col<resX; col++)
+		{
+			double x1 = (double)(col + 0.25) / resX;
+			double y1 = (double)(lin + 0.25) / resY;
+			double x2 = (double)(col + 0.25) / resX;
+			double y2 = (double)(lin + 0.75) / resY;
+			double x3 = (double)(col + 0.75) / resX;
+			double y3 = (double)(lin + 0.25) / resY;
+			double x4 = (double)(col + 0.75) / resX;
+			double y4 = (double)(lin + 0.75) / resY;
+
+			Ray ray1 = cam->generateRay(x1, y1);
+			Ray ray2 = cam->generateRay(x2, y2);
+			Ray ray3 = cam->generateRay(x3, y3);
+			Ray ray4 = cam->generateRay(x4, y4);
+
+			Vector3D color1 = shader->computeColor(ray1, *objectsList, *lightSourceList);
+			Vector3D color2 = shader->computeColor(ray2, *objectsList, *lightSourceList);
+			Vector3D color3 = shader->computeColor(ray3, *objectsList, *lightSourceList);
+			Vector3D color4 = shader->computeColor(ray4, *objectsList, *lightSourceList);
+
+			Vector3D sum = color1 + color2 + color3 + color4;
+			Vector3D pixelColor = sum / 4;
+
+			film->setPixelValue(col, lin, pixelColor);
+		}
+	}
+}
+
+void delimitColor(Vector3D* color) {
+	if (color->x > 1) color->x = 1;
+	if (color->y > 1) color->y = 1;
+	if (color->z > 1) color->z = 1;
+}
+
+Vector3D colorAvg(int x, int y, Film* source, int delta) {
+	Vector3D color = (0, 0, 0);
+	Vector3D addColor;
+
+	for (int i = -delta; i <= delta; i++) {
+		for (int j = -delta; j <= delta; j++) {
+			addColor = source->getPixelValue(x + i, y + j);
+			delimitColor(&addColor);
+			color += addColor;
+		}
+	}
+
+	int filterSize = (delta * 2 + 1) * (delta * 2 + 1);
+	color /= filterSize;
+	return color;
+}
+
+void fillMask(Film* mask, Film* film) {
+
+	int delta = 2;
+	double threshold = 0.01;
+	Vector3D color = (0, 0, 0);
+	int resX = film->getWidth();
+	int resY = film->getHeight();
+
+	std::cout << "Fill the Mask film" << std::endl;
+
+	for (int i = delta; i < resX - delta; i++) {
+		for (int j = delta; j < resY - delta; j++) {
+
+			Vector3D filmColor = film->getPixelValue(i, j);
+			delimitColor(&filmColor);
+
+			Vector3D color = colorAvg(i, j, film, delta) - filmColor;
+			if (color.length() > threshold) {
+				mask->setPixelValue(i, j, Vector3D(1,1,1));
+				//And then compute the film4rpp in this pixel
+			}
+		}
+	}
+
+	mask->save();
+
+}
+
 int main()
 {
     std::string separator     = "\n----------------------------------------------\n";
@@ -273,7 +324,7 @@ int main()
     // Declare the shader
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
-	Shader *shader = new GlobalShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
+	Shader *shader = new DirectShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
 
     // Declare pointers to all the variables which describe the scene
     Camera *cam;
@@ -284,9 +335,11 @@ int main()
 	buildSceneCornellBox(cam, film, objectsList, lightSourceList);
 
     // Launch some rays!
-    //raytrace(cam, shader, film, objectsList, lightSourceList);
+    raytrace(cam, shader, film, objectsList, lightSourceList);
 
-	raytrace4rpp(cam, shader, film, objectsList, lightSourceList);
+	fillMask(mask, film);
+	
+	//raytrace4rpp(cam, shader, film, objectsList, lightSourceList);
 
 	for (int j = 0; j < filmHeight; j++) {
 		for (int i = 0; i < filmWidth; i++) {
@@ -298,7 +351,7 @@ int main()
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
-    film->save();
+    //film->save();
 
     std::cout << "\n\n" << std::endl;
     return 0;
