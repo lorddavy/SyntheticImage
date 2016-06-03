@@ -210,15 +210,16 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 }
 
 
-void raytrace4rpp(Camera* &cam, Shader* &shader, Film* &film,
-	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
+void superSampling(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Film* &mask,
+	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList, int rootNumRays)
 {
+	//4 rayos (Martí)
 	unsigned int sizeBar = 40;
 
 	size_t resX = film->getWidth();
 	size_t resY = film->getHeight();
 
-	for (size_t lin = 0; lin<resY; lin++)
+	/*for (size_t lin = 0; lin<resY; lin++)
 	{
 		// Show progression
 		if (lin % (resY / sizeBar) == 0)
@@ -250,7 +251,56 @@ void raytrace4rpp(Camera* &cam, Shader* &shader, Film* &film,
 
 			film->setPixelValue(col, lin, pixelColor);
 		}
+	}*/
+
+	//n Rayos (David)
+	float pixelDistance = 1;
+
+	float distanceX = pixelDistance / rootNumRays;
+	float distanceY = pixelDistance / rootNumRays;
+
+	for (size_t lin = 0; lin<resY; lin++)
+	{
+		// Show progression
+		if (lin % (resY / sizeBar) == 0)
+			std::cout << ".";
+
+			for (size_t col = 0; col<resX; col++)
+			{
+
+				Vector3D maskColor = mask->getPixelValue(col, lin);
+				if (maskColor.x == 1.0)
+				{
+
+					Vector3D color = (0, 0, 0);
+
+					double originX = col + distanceX / 2;
+					double originY = lin + distanceY / 2;					
+
+					for (int i = 0; i < rootNumRays; i++)
+					{
+						double yi = originY + i * distanceY;
+
+						for (int j = 0; j < rootNumRays; j++)
+						{
+							double xi = originX + j * distanceX;
+							Ray ray = cam->generateRay(xi / resX, yi / resY);
+							color += shader->computeColor(ray, *objectsList, *lightSourceList);
+						}
+					}
+
+					Vector3D PixelColor = (color + film->getPixelValue(col, lin)) / (rootNumRays*rootNumRays+1);
+					
+					result->setPixelValue(col, lin, PixelColor);
+
+				}else{
+					Vector3D pixelColor = film->getPixelValue(col, lin);
+					result->setPixelValue(col, lin, pixelColor);
+				}
+		}
+		
 	}
+
 }
 
 void delimitColor(Vector3D* color) {
@@ -328,7 +378,7 @@ bool compareEachPixel(int x, int y, Film* film, int delta, double threshold)
 			delimitColor(&nextColor);
 			
 			dif = color - nextColor;
-			if(dif.length() > threshold) return true;
+			if(dif.length() > colorAvg(i, j, film, delta).length() * threshold) return true;
 		}
 	}
 
@@ -351,13 +401,17 @@ void fillMask(Film* mask, Film* film)
 			Vector3D filmColor = film->getPixelValue(i, j);
 			delimitColor(&filmColor);
 
+			//Máscara tipo 1
 			/*Vector3D color = colorAvg(i, j, film, delta) - filmColor;
-			if (color.length() > threshold) {
+			if (color.length() > colorAvg(i, j, film, delta).length() * threshold) {
 				mask->setPixelValue(i, j, Vector3D(1,1,1));
 			}*/
 
+			//Máscara tipo 2
 			if(compareEachPixel(i, j, film, delta, threshold))
 				mask->setPixelValue(i, j, Vector3D(1, 1, 1));
+
+			//!!! Comparar en la presentación cual máscara da mejor resultado
 
 		}
 	}
@@ -407,8 +461,6 @@ void launchMoreRays(Camera* &cam, Shader* &shader, Film* &result, Film* &film, F
 			}
 		}
 	}
-
-
 }
 
 int main()
@@ -446,7 +498,7 @@ int main()
 	
 	// Antialiasing
 	fillMask(mask, film);
-	launchMoreRays(cam, shader, result, film, mask, objectsList, lightSourceList);
+	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);
 
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
