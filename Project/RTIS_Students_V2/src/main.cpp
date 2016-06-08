@@ -213,7 +213,7 @@ void buildSceneCornellBox(Camera* &cam, Film* &film,
 void superSampling(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Film* &mask,
 	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList, int rootNumRays)
 {
-	//4 rayos (Martí)
+	//4 rays per pixel (Martí)
 	unsigned int sizeBar = 40;
 
 	size_t resX = film->getWidth();
@@ -253,7 +253,7 @@ void superSampling(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Fi
 		}
 	}*/
 
-	//n Rayos (David)
+	//n Rays per pixel (David)
 	float pixelDistance = 1;
 
 	float distanceX = pixelDistance / rootNumRays;
@@ -267,11 +267,9 @@ void superSampling(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Fi
 
 			for (size_t col = 0; col<resX; col++)
 			{
-
 				Vector3D maskColor = mask->getPixelValue(col, lin);
 				if (maskColor.x == 1.0)
 				{
-
 					Vector3D color = (0, 0, 0);
 
 					double originX = col + distanceX / 2;
@@ -298,17 +296,17 @@ void superSampling(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Fi
 					result->setPixelValue(col, lin, pixelColor);
 				}
 		}
-		
 	}
-
 }
 
+//Max color = 1 in each domain component
 void delimitColor(Vector3D* color) {
 	if (color->x > 1) color->x = 1;
 	if (color->y > 1) color->y = 1;
 	if (color->z > 1) color->z = 1;
 }
 
+//Color average of the pixels in delta range
 Vector3D colorAvg(int x, int y, Film* film, int delta) {
 	Vector3D color = (0, 0, 0);
 	Vector3D addColor;
@@ -336,13 +334,13 @@ Vector3D colorAvg(int x, int y, Film* film, int delta) {
 	return color;
 }
 
+//Comparing difference of color of each pixel and the next
 bool compareEachPixel(int x, int y, Film* film, int delta, double threshold)
 {
 	Vector3D color = film->getPixelValue(x, y);
 	delimitColor(&color);
 	Vector3D nextColor, dif;
 
-	// Version de David
 	int deltaXMin = -delta;
 	int deltaXMax = delta;
 	int deltaYMin = -delta;
@@ -366,6 +364,7 @@ bool compareEachPixel(int x, int y, Film* film, int delta, double threshold)
 	return false;
 }
 
+//Generation of mask image
 void fillMask(Film* mask, Film* film)
 {
 	int delta = 2;
@@ -382,64 +381,18 @@ void fillMask(Film* mask, Film* film)
 			Vector3D filmColor = film->getPixelValue(i, j);
 			delimitColor(&filmColor);
 
-			//Máscara tipo 1
+			//Mask type 1
 			Vector3D color = colorAvg(i, j, film, delta) - filmColor;
 			if (color.length() > colorAvg(i, j, film, delta).length() * threshold) {
 				mask->setPixelValue(i, j, Vector3D(1,1,1));
 			}
 
-			//Máscara tipo 2
+			//Mask type 2
 			/*if(compareEachPixel(i, j, film, delta, threshold))
 				mask->setPixelValue(i, j, Vector3D(1, 1, 1));*/
 
-			//!!! Comparar en la presentación cual máscara da mejor resultado
+			//Compare the 2 results !!!
 
-		}
-	}
-	//mask->save();
-}
-
-void launchMoreRays(Camera* &cam, Shader* &shader, Film* &result, Film* &film, Film* &mask,
-	std::vector<Shape*>* &objectsList, std::vector<PointLightSource>* &lightSourceList)
-{
-	size_t resX = film->getWidth();
-	size_t resY = film->getHeight();
-
-	Vector3D pixelColor;
-
-	for (int j = 0; j < resY; j++) {
-		for (int i = 0; i < resX; i++) {
-
-			Vector3D maskColor = mask->getPixelValue(i, j);
-			if (maskColor.x == 1.0) {
-
-				double x1 = (double)(i + 0.25) / resX;
-				double y1 = (double)(j + 0.25) / resY;
-				double x2 = (double)(i + 0.25) / resX;
-				double y2 = (double)(j + 0.75) / resY;
-				double x3 = (double)(i + 0.75) / resX;
-				double y3 = (double)(j + 0.25) / resY;
-				double x4 = (double)(i + 0.75) / resX;
-				double y4 = (double)(j + 0.75) / resY;
-
-				Ray ray1 = cam->generateRay(x1, y1);
-				Ray ray2 = cam->generateRay(x2, y2);
-				Ray ray3 = cam->generateRay(x3, y3);
-				Ray ray4 = cam->generateRay(x4, y4);
-
-				Vector3D color1 = shader->computeColor(ray1, *objectsList, *lightSourceList);
-				Vector3D color2 = shader->computeColor(ray2, *objectsList, *lightSourceList);
-				Vector3D color3 = shader->computeColor(ray3, *objectsList, *lightSourceList);
-				Vector3D color4 = shader->computeColor(ray4, *objectsList, *lightSourceList);
-
-				Vector3D sum = color1 + color2 + color3 + color4 + film->getPixelValue(i, j);
-				pixelColor = sum / 5;
-
-				result->setPixelValue(i, j, pixelColor);
-			}else{
-				pixelColor = film->getPixelValue(i, j);
-				result->setPixelValue(i, j, pixelColor);
-			}
 		}
 	}
 }
@@ -450,20 +403,23 @@ int main()
     std::string separatorStar = "\n**********************************************\n";
     std::cout << separator << "RTIS - Ray Tracer for \"Imatge Sintetica\"" << separator << std::endl;
 
-    // Create an empty film
+    // Create an empty film 800 x 600 or 1920 x 1080
 	int filmWidth = 1920;
 	int filmHeight = 1080;
 
-    Film* film;
-    film = new Film(filmWidth, filmHeight);
-
+    Film* film = new Film(filmWidth, filmHeight);
 	Film* mask = new Film(filmWidth, filmHeight);
 	Film* result = new Film(filmWidth, filmHeight);
 
     // Declare the shader
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
+
+	//Only with high number diffuse samples (because the noise) -> high computational cost
 	Shader *shader = new GlobalShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
+
+	//Alternative shader
+	//Shader *shader = new DirectShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
 
     // Declare pointers to all the variables which describe the scene
     Camera *cam;
@@ -481,15 +437,11 @@ int main()
 	film->save("./first.bmp");
 	fillMask(mask, film);
 	mask->save("./mask.bmp");
-	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);
-	result->save("./result.bmp");
+	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);	
 
     // Save the final result to file
-    //std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
-    
-	/*film->save("./first.bmp");
-	mask->save("./mask.bmp");
-	result->save("./result.bmp");*/
+    std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
+	result->save("./result.bmp");
 
     std::cout << "\n\n" << std::endl;
     return 0;

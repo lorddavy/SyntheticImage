@@ -62,7 +62,7 @@ Vector3D GlobalShader::computeColor(const Ray &r, const std::vector<Shape*> &obj
 			
 			if (r.depth == 0)
 			{
-				int nSamples = 100;
+				int nSamples = 500;
 				Vector3D sumatory = Vector3D(0);
 				HemisphericalSampler sampler;
 
