@@ -470,8 +470,8 @@ int main()
     std::cout << separator << "RTIS - Ray Tracer for \"Imatge Sintetica\"" << separator << std::endl;
 
     // Create an empty film
-	int filmWidth = 800;
-	int filmHeight = 600;
+	int filmWidth = 1920;
+	int filmHeight = 1080;
 
     Film* film;
     film = new Film(filmWidth, filmHeight);
@@ -482,7 +482,7 @@ int main()
     // Declare the shader
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
-	Shader *shader = new DirectShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
+	Shader *shader = new GlobalShader(Vector3D(0.4, 1, 0.4), 8, bgColor);
 
     // Declare pointers to all the variables which describe the scene
     Camera *cam;
@@ -497,15 +497,18 @@ int main()
 	//raytrace4rpp(cam, shader, film, objectsList, lightSourceList);
 	
 	// Antialiasing
+	film->save("./first.bmp");
 	fillMask(mask, film);
+	mask->save("./mask.bmp");
 	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);
+	result->save("./result.bmp");
 
     // Save the final result to file
-    std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
+    //std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
     
-	film->save("./first.bmp");
+	/*film->save("./first.bmp");
 	mask->save("./mask.bmp");
-	result->save("./result.bmp");
+	result->save("./result.bmp");*/
 
     std::cout << "\n\n" << std::endl;
     return 0;
