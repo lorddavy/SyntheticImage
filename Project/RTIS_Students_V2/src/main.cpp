@@ -313,16 +313,15 @@ Vector3D colorAvg(int x, int y, Film* film, int delta) {
 	Vector3D color = (0, 0, 0);
 	Vector3D addColor;
 
-	// Version de David
-	/*int deltaXMin = -delta;
+	int deltaXMin = -delta;
 	int deltaXMax = delta;
 	int deltaYMin = -delta;
 	int	deltaYMax = delta;
 
-	if (x - delta < 0) deltaXMin = 0;
-	if (y - delta < 0) deltaYMin = 0;
-	if (x + delta > film->getWidth() - 1) deltaXMax = 0;
-	if (y + delta > film->getHeight() - 1) deltaYMax = 0;
+	if (x - delta < 0) deltaXMin = -x;
+	if (y - delta < 0) deltaYMin = -y;
+	if (x + delta > film->getWidth() - 1) deltaXMax = film->getWidth() - x - 1;
+	if (y + delta > film->getHeight() - 1) deltaYMax = film->getHeight() - y - 1;
 
 	for (int i = deltaXMin; i <= deltaXMax; i++) {
 		for (int j = deltaYMin; j <= deltaYMax; j++) {
@@ -330,27 +329,9 @@ Vector3D colorAvg(int x, int y, Film* film, int delta) {
 			delimitColor(&addColor);
 			color += addColor;
 		}
-	}*/
-
-	// Version de Martí
-	int maxX = film->getWidth() - delta -1;
-	int maxY = film->getHeight() - delta -1;
-
-	if (x < delta) x = delta;
-	if (y < delta) y = delta;
-	if (x > maxX) x = maxX;
-	if (y > maxY) y = maxY;
-
-	for (int i = -delta; i <= delta; i++) {
-		for (int j = -delta; j <= delta; j++) {
-			addColor = film->getPixelValue(x + i, y + j);
-			delimitColor(&addColor);
-			color += addColor;
-		}
 	}
 
-	// return
-	int filterSize = (delta * 2 + 1) * (delta * 2 + 1);
+	int filterSize = (abs(deltaXMin) + abs(deltaXMax) + 1) * (abs(deltaYMin) + abs(deltaYMax) + 1);
 	color /= filterSize;
 	return color;
 }
@@ -402,14 +383,14 @@ void fillMask(Film* mask, Film* film)
 			delimitColor(&filmColor);
 
 			//Máscara tipo 1
-			/*Vector3D color = colorAvg(i, j, film, delta) - filmColor;
+			Vector3D color = colorAvg(i, j, film, delta) - filmColor;
 			if (color.length() > colorAvg(i, j, film, delta).length() * threshold) {
 				mask->setPixelValue(i, j, Vector3D(1,1,1));
-			}*/
+			}
 
 			//Máscara tipo 2
-			if(compareEachPixel(i, j, film, delta, threshold))
-				mask->setPixelValue(i, j, Vector3D(1, 1, 1));
+			/*if(compareEachPixel(i, j, film, delta, threshold))
+				mask->setPixelValue(i, j, Vector3D(1, 1, 1));*/
 
 			//!!! Comparar en la presentación cual máscara da mejor resultado
 
@@ -470,8 +451,8 @@ int main()
     std::cout << separator << "RTIS - Ray Tracer for \"Imatge Sintetica\"" << separator << std::endl;
 
     // Create an empty film
-	int filmWidth = 800;
-	int filmHeight = 600;
+	int filmWidth = 1920;
+	int filmHeight = 1080;
 
     Film* film;
     film = new Film(filmWidth, filmHeight);
@@ -496,15 +477,14 @@ int main()
     raytrace(cam, shader, film, objectsList, lightSourceList);
 	//raytrace4rpp(cam, shader, film, objectsList, lightSourceList);
 	
-	// Antialiasing
-	fillMask(mask, film);
-	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);
-
     // Save the final result to file
     std::cout << "\n\nSaving the result to file output.bmp\n" << std::endl;
     
+	// Antialiasing
 	film->save("./first.bmp");
+	fillMask(mask, film);
 	mask->save("./mask.bmp");
+	superSampling(cam, shader, result, film, mask, objectsList, lightSourceList, 3);
 	result->save("./result.bmp");
 
     std::cout << "\n\n" << std::endl;
